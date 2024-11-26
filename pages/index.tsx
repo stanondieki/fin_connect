@@ -6,7 +6,7 @@ const Home: React.FC = () => {
   return (
     <>
       <Head>
-        <title>AI_Financial Advisor</title>
+        <title>AI Financial Advisor</title>
         <meta
           name="description"
           content="Personalized financial advice, budget tracking, and money management tips powered by AI."
