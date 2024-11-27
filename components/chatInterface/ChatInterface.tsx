@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaTrashAlt } from "react-icons/fa"; // Import the delete icon
 
 interface ChatInterfaceProps {}
 
@@ -12,10 +13,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = () => {
       return;
     }
 
-    // Add user message to chat history
     setChatHistory((prev) => [...prev, `You: ${message}`]);
 
-    // Simulate AI response
     setTimeout(() => {
       setChatHistory((prev) => [
         ...prev,
@@ -23,12 +22,15 @@ const ChatInterface: React.FC<ChatInterfaceProps> = () => {
       ]);
     }, 1000);
 
-    // Clear the input field
     setMessage("");
   };
 
+  const handleClearChat = () => {
+    setChatHistory([]);
+  };
+
   return (
-    <section id="chat" className="bg-white p-8 shadow-xl rounded-2xl mb-12 ">
+    <section id="chat" className="bg-white p-8 shadow-xl rounded-2xl mb-12">
       <h3 className="text-2xl font-bold text-indigo-600 mb-4">
         💬 Chat with Your AI Advisor
       </h3>
@@ -37,7 +39,15 @@ const ChatInterface: React.FC<ChatInterfaceProps> = () => {
       </p>
 
       {/* Chat History */}
-      <div className="bg-gray-100 p-4 rounded-lg h-64 mb-6 overflow-y-auto">
+      <div className="relative bg-gray-100 p-4 rounded-lg h-64 mb-6 overflow-y-auto">
+        {/* Delete Icon to clear chat */}
+        <button
+          onClick={handleClearChat}
+          className="absolute top-4 right-4 text-red-500"
+        >
+          <FaTrashAlt size={20} />
+        </button>
+
         {chatHistory.length > 0 ? (
           chatHistory.map((chat, index) => (
             <p key={index} className="mb-2 text-gray-800">
