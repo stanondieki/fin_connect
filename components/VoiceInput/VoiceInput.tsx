@@ -147,23 +147,24 @@ const Home = () => {
           </div>
 
           {/* Chat Input */}
-          <div className="flex items-center space-x-4">
-            <input
-              type="text"
-              placeholder="Ask a question..."
-              value={voiceInput}
-              onChange={(e) => setVoiceInput(e.target.value)}
-              className="flex-1 text-black p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
-            />
-            <button
-              onClick={startVoiceInput}
-              className={`${
-                isListening ? "bg-green-600" : "bg-indigo-600"
-              } text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 transition duration-300`}
-            >
-              {isListening ? "Listening..." : "Start Voice Input"}
-            </button>
-          </div>
+          <div className="flex flex-col sm:flex-row items-center sm:space-y-0 sm:space-x-4 space-y-4 w-full">
+          <input
+            type="text"
+            placeholder="Ask a question..."
+            value={voiceInput}
+            onChange={(e) => setVoiceInput(e.target.value)}
+            className="w-full sm:flex-1 text-black p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
+          />
+          <button
+            onClick={startVoiceInput}
+            className={`w-full sm:w-auto ${
+              isListening ? "bg-green-600" : "bg-indigo-600"
+            } text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 transition duration-300`}
+          >
+            {isListening ? "Listening..." : "Start Voice Input"}
+          </button>
+        </div>
+
         </section>
 
         {/* Footer */}
