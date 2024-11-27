@@ -34,6 +34,7 @@ const ChatInterface: React.FC = () => {
     setTimeout(() => {
       setChatHistory((prev) => [
         ...prev,
+
       ]);
     }, 1000);
 
@@ -47,7 +48,7 @@ const ChatInterface: React.FC = () => {
 
   return (
 
-    
+
 
     <section id="chat" className="bg-white p-8 shadow-xl rounded-2xl mb-12">
       <h3 className="text-2xl font-bold text-indigo-600 mb-4">
