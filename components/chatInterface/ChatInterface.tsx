@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-interface ChatInterfaceProps {}
-
-const ChatInterface: React.FC<ChatInterfaceProps> = () => {
+const ChatInterface: React.FC = () => {
   const [message, setMessage] = useState<string>("");
   const [chatHistory, setChatHistory] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!message.trim()) {
       alert("Please enter a message.");
       return;
@@ -14,24 +14,24 @@ const ChatInterface: React.FC<ChatInterfaceProps> = () => {
 
     // Add user message to chat history
     setChatHistory((prev) => [...prev, `You: ${message}`]);
+    setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      setChatHistory((prev) => [
-        ...prev,
-        `AI Advisor: I’m here to assist with your financial questions!`,
-      ]);
-    }, 1000);
+    try {
+      const response = await axios.post("/api/chat", { userMessage: message });
 
-    // Clear the input field
-    setMessage("");
+      setChatHistory((prev) => [...prev, `AI Advisor: ${response.data.message}`]);
+    } catch (error) {
+      console.error(error);
+      setChatHistory((prev) => [...prev, "AI Advisor: Sorry, there was an error processing your request."]);
+    } finally {
+      setIsLoading(false);
+      setMessage("");
+    }
   };
 
   return (
     <section id="chat" className="bg-white p-8 shadow-xl rounded-2xl mb-12 ">
-      <h3 className="text-2xl font-bold text-indigo-600 mb-4">
-        💬 Chat with Your AI Advisor
-      </h3>
+      <h3 className="text-2xl font-bold text-indigo-600 mb-4">💬 Chat with Your AI Advisor</h3>
       <p className="text-gray-700 mb-6 leading-relaxed">
         Ask for financial advice, budget tips, or help with planning. Start typing or use voice commands!
       </p>
@@ -47,6 +47,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = () => {
         ) : (
           <p className="text-gray-500">No messages yet. Start the conversation!</p>
         )}
+        {isLoading && <p className="text-gray-500">AI Advisor is typing...</p>}
       </div>
 
       {/* Chat Input */}
