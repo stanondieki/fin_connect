@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { FaTrashAlt, FaBars } from "react-icons/fa"; // Import icons for delete and hamburger
 import Head from "next/head";
 
 const Home = () => {
+  const [message, setMessage] = useState<string>("");
+  const [chatHistory, setChatHistory] = useState<string[]>([]);
   const [voiceInput, setVoiceInput] = useState("");
   const [isListening, setIsListening] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const startVoiceInput = () => {
     const SpeechRecognition =
@@ -16,7 +20,7 @@ const Home = () => {
     const recognition = new SpeechRecognition();
     recognition.lang = "en-US";
     recognition.interimResults = true;
-    recognition.continuous = false;
+    recognition.continuous = true;
 
     recognition.onstart = () => {
       setIsListening(true);
@@ -27,11 +31,28 @@ const Home = () => {
       const transcript = Array.from(event.results)
         .map((result) => result[0].transcript)
         .join("");
+
       setVoiceInput(transcript);
+
+      if (event.results[0].isFinal) {
+        if (transcript.trim() !== "") {
+          setChatHistory((prev) => [...prev, `You: ${transcript}`]);
+
+          setTimeout(() => {
+            setChatHistory((prev) => [
+              ...prev,
+              `AI Advisor: I’m here to assist with your financial questions!`,
+            ]);
+          }, 1000);
+
+          setVoiceInput("");
+        }
+      }
     };
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       console.error("Speech recognition error:", event.error);
+      setIsListening(false);
     };
 
     recognition.onend = () => {
@@ -39,21 +60,93 @@ const Home = () => {
       console.log("Voice recognition ended.");
     };
 
+    setTimeout(() => {
+      recognition.stop();
+    }, 5000);
+
     recognition.start();
+  };
+
+  const handleClearChat = () => {
+    setChatHistory([]);
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
   };
 
   return (
     <>
-     
-      <main className="min-h-screen  p-6">
-       
-        <section id="chat" className="bg-white p-8 shadow-xl rounded-2xl mb-12">
-            <h3 className="text-2xl font-bold text-indigo-600 mb-4">
+      <Head>
+        <title>AI Financial Advisor</title>
+      </Head>
+      <main className="min-h-screen w-full">
+        <section id="chat" className="bg-white p-8 shadow-xl rounded-2xl mb-12 w-full">
+          <h3 className="text-2xl font-bold text-indigo-600 mb-4">
             🎙️ Voice Commands
-            </h3>         
-            <p className="text-gray-700 mb-6 leading-relaxed">
+          </h3>
+          <p className="text-gray-700 mb-6 leading-relaxed">
             Use your voice to interact with the chatbot. Enable microphone access to start.
           </p>
+
+          {/* Chat History */}
+          <div className="relative bg-gray-100 p-4 rounded-lg h-64 mb-6 overflow-y-auto">
+            {/* Delete Icon to clear chat */}
+            <button
+              onClick={handleClearChat}
+              className="absolute top-4 right-4 z-20 text-red-500"
+              aria-label="Clear Chat History"
+            >
+              <FaTrashAlt size={20} />
+            </button>
+
+            {/* Sidebar Trigger */}
+            {chatHistory.some((chat) => chat.startsWith("AI Advisor:")) && (
+              <button
+                onClick={toggleSidebar}
+                className="absolute top-4 left-4 z-20 text-indigo-600"
+                aria-label="Open Sidebar"
+              >
+                <FaBars size={24} />
+              </button>
+            )}
+
+            {chatHistory.length > 0 ? (
+              chatHistory.map((chat, index) => (
+                <p key={index} className="mb-2 text-gray-800">
+                  {chat}
+                </p>
+              ))
+            ) : (
+              <p className="text-gray-500">No messages yet. Start the conversation!</p>
+            )}
+
+            {/* Sidebar */}
+            {isSidebarOpen && (
+              <div className="fixed inset-0 bg-gray-800 bg-opacity-50 z-10">
+                <div className="bg-white w-64 h-full p-4">
+                  <h4 className="font-bold text-xl mb-4">AI Requests</h4>
+                  <ul className="space-y-2">
+                    {chatHistory
+                      .filter((chat) => chat.startsWith("AI Advisor:"))
+                      .map((chat, index) => (
+                        <li key={index} className="text-gray-800">
+                          {chat}
+                        </li>
+                      ))}
+                  </ul>
+                  <button
+                    onClick={toggleSidebar}
+                    className="absolute top-4 right-4 text-gray-600"
+                  >
+                    X
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Chat Input */}
           <div className="flex items-center space-x-4">
             <input
               type="text"
