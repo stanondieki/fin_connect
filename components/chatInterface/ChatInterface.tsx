@@ -34,7 +34,7 @@ const ChatInterface: React.FC = () => {
     setTimeout(() => {
       setChatHistory((prev) => [
         ...prev,
-        `AI Advisor: I’m here to assist with your financial questions!`,
+  
       ]);
     }, 1000);
 
@@ -48,8 +48,7 @@ const ChatInterface: React.FC = () => {
 
   return (
 
-    <section id="chat" className="bg-white p-8 shadow-xl rounded-2xl mb-12 ">
-      <h3 className="text-2xl font-bold text-indigo-600 mb-4">💬 Chat with Your AI Advisor</h3>
+
 
     <section id="chat" className="bg-white p-8 shadow-xl rounded-2xl mb-12">
       <h3 className="text-2xl font-bold text-indigo-600 mb-4">
