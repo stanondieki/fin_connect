@@ -34,7 +34,7 @@ const ChatInterface: React.FC = () => {
     setTimeout(() => {
       setChatHistory((prev) => [
         ...prev,
-  
+
       ]);
     }, 1000);
 
