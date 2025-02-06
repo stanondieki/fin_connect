@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
@@ -8,6 +9,7 @@ const SignIn = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
+    const [passwordVisible, setPasswordVisible] = useState(false); 
     const router = useRouter();
 
     const handleSubmit = async (e) => {
@@ -17,7 +19,7 @@ const SignIn = () => {
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/login', { email, password, rememberMe });
             if (response.data.success) {
-                router.push('/dashboard');
+                router.push('/dash/dashboard');
             } else {
                 setError(response.data.message);
             }
@@ -51,15 +53,24 @@ const SignIn = () => {
                 </div>
                 <div>
                     <label htmlFor="password" className="block text-gray-700">Password</label>
-                    <input
-                        id="password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => handleInputChange(e, setPassword)}
-                        required
-                        className="w-full p-3 border text-black border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Enter your password"
-                    />
+                    <div className="relative">
+                        <input
+                            id="password"
+                            type={passwordVisible ? 'text' : 'password'}  // Toggle input type
+                            value={password}
+                            onChange={(e) => handleInputChange(e, setPassword)}
+                            required
+                            className="w-full p-3 border text-black border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Enter your password"
+                        />
+                        <button 
+                            type="button" 
+                            onClick={() => setPasswordVisible(!passwordVisible)}  
+                            className="absolute right-3 top-3"
+                        >
+                            {passwordVisible ? <FaEyeSlash /> : <FaEye />}  
+                        </button>
+                    </div>
                 </div>
                 {error && <p className="text-red-500 text-sm">{error}</p>}
 
@@ -86,7 +97,7 @@ const SignIn = () => {
 
             {/* Forgot Password link */}
             <div className="mt-4 flex justify-between items-center text-sm text-gray-600">
-                <a href="/forgot-password" className="text-blue-600 hover:underline">Forgot Password?</a>
+                <a href="/Auth/forgotpassword" className="text-blue-600 hover:underline">Forgot Password?</a>
                 <p>
                     Don't have an account? 
                     <a href="/Auth/signup" className="text-blue-600 hover:underline">Sign Up</a>

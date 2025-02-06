@@ -32,6 +32,9 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        //send verification Email
+       // $user->sendEmailVerificationNotification();
+
         return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
     }
 

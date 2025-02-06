@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
 
-  const excludeNavbarRoutes = ["/dash/dashboard","/expenditure/breakdown","/Auth/signin","/Auth/signup"];
+  const excludeNavbarRoutes = ["/dash/dashboard","/expenditure/breakdown","/Auth/signin","/Auth/signup","/Auth/forgotpassword"];
 
   
   const shouldRenderNavbar = !excludeNavbarRoutes.includes(router.pathname);
