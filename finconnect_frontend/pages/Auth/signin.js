@@ -18,12 +18,27 @@ const SignIn = () => {
         setError('');
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/login', { email, password, rememberMe });
-            if (response.data.success) {
-                router.push('/dash/dashboard');
+            console.log('Response:', response.data); // Debug log
+            
+            if (response.data.success || response.data.message === 'Login successful') {
+                // Store any auth tokens if your backend sends them
+                if (response.data.token) {
+                    localStorage.setItem('authToken', response.data.token);
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+                }
+                
+                // Use await to ensure redirection happens
+                await router.push('/dash/dashboard');
+                
+                // If router.push doesn't work, try force reload
+                if (typeof window !== 'undefined') {
+                    window.location.href = '/dash/dashboard';
+                }
             } else {
-                setError(response.data.message);
+                setError(response.data.message || 'Login failed');
             }
         } catch (err) {
+            console.error('Login error:', err); // Debug log
             setError('An error occurred. Please try again.');
         } finally {
             setLoading(false);
