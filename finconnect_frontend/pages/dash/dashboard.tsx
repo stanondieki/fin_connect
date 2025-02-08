@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Button from "@/components/ui/Button";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { User, DollarSign, BarChart2, Bell, CheckCircle, Lightbulb, TrendingUp } from "lucide-react";
+import { User, DollarSign, BarChart2, Bell, CheckCircle, TrendingUp, ShieldAlert, Activity } from "lucide-react";
 import Progress from "@/components/progress/progress";
 import Sidebar from "../../components/bar/sidebar";
 import Navbar from "@/components/bar/header";
+import Chatbot from "@/components/bot/chatbot";
 
 const Dashboard: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-
   const toggleSidebar = () => setCollapsed(!collapsed);
 
   const sampleData = [
@@ -19,75 +18,69 @@ const Dashboard: React.FC = () => {
     { month: "Mar", expenses: 500, income: 750 },
     { month: "Apr", expenses: 700, income: 1100 },
     { month: "May", expenses: 600, income: 850 },
-    { month: "Jun", expenses: 450, income: 950 },
-    { month: "Jul", expenses: 700, income: 1000 },
-    { month: "Aug", expenses: 500, income: 900 },
-    { month: "Sep", expenses: 650, income: 1050 },
-    { month: "Oct", expenses: 800, income: 1200 },
-    { month: "Nov", expenses: 550, income: 950 },
-    { month: "Dec", expenses: 750, income: 1150 },
   ];
 
   return (
     <div className="flex">
       <Sidebar collapsed={collapsed} onToggle={toggleSidebar} />
       <div className={`p-6 bg-gray-100 min-h-screen transition-all duration-300 flex-1 flex flex-col ${collapsed ? "ml-10" : "ml-56"}`}>
-      <Navbar isSidebarCollapsed={collapsed} />
-
-        <h1 className="text-3xl font-bold text-blue-600 mb-6"
-        style={{ marginTop:'40px' }}>Dashboard</h1>
-
-        {/* Overview Section */}
+        <Navbar isSidebarCollapsed={collapsed} />
+        
+        <h1 className="text-3xl font-bold text-blue-600 mb-6 mt-10">Dashboard</h1>
+        
+        {/* Financial Summary */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <Card>
-            <CardContent>
-              <div className="flex items-center space-x-4">
-                <User className="text-blue-500 w-10 h-10" />
-                <div>
-                  <h2 className="text-lg font-semibold text-blue-600">Profile Overview</h2>
-                  <p className="text-neutral-800">Anthony Makori</p>
-                </div>
+            <CardContent className="flex items-center space-x-4">
+              <User className="text-blue-500 w-10 h-10" />
+              <div>
+                <h2 className="text-lg font-semibold text-blue-600">Net Worth</h2>
+                <p className="text-gray-600">$12,000</p>
               </div>
             </CardContent>
           </Card>
-
+          
           <Card>
-            <CardContent>
-              <div className="flex items-center space-x-4">
-                <DollarSign className="text-green-500 w-10 h-10" />
-                <div>
-                  <h2 className="text-lg font-semibold text-green-500">Monthly Budget</h2>
-                  <p className="text-gray-600">$2,500</p>
-                </div>
+            <CardContent className="flex items-center space-x-4">
+              <DollarSign className="text-green-500 w-10 h-10" />
+              <div>
+                <h2 className="text-lg font-semibold text-green-500">Savings Progress</h2>
+                <p className="text-gray-600">$8,750</p>
+                <Progress value={70} className="mt-2 w-full" />
               </div>
             </CardContent>
           </Card>
-
+          
           <Card>
-            <CardContent>
-              <div className="flex items-center space-x-4">
-                <BarChart2 className="text-purple-500 w-10 h-10" />
-                <div>
-                  <h2 className="text-lg font-semibold text-purple-500">Savings Progress</h2>
-                  <p className="text-gray-600">$8,750</p>
-                  <Progress value={70} className="mt-2 w-full" />
-                </div>
+            <CardContent className="flex items-center space-x-4">
+              <BarChart2 className="text-purple-500 w-10 h-10" />
+              <div>
+                <h2 className="text-lg font-semibold text-purple-500">Investment Portfolio</h2>
+                <p className="text-gray-600">$15,500</p>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Notifications Section */}
-        <div className="bg-white p-4 rounded-2xl shadow-lg mb-6">
-          <h2 className="text-lg font-bold mb-2 text-blue-600 flex items-center">
-            <Bell className="mr-2" /> Notifications
-          </h2>
-          <ul className="space-y-2">
-            <li className="flex items-center space-x-3 bg-green-50 hover:bg-gray-100 rounded-md p-2">
-              <CheckCircle className="text-green-500 w-5 h-5" />
-              <p className="text-gray-700 text-sm">🚀 You achieved a 7-day savings streak!</p>
-            </li>
-          </ul>
+        {/* AI Insights & Risk Alerts */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <Card>
+            <CardContent>
+              <h2 className="text-lg font-bold text-green-500 flex items-center mb-2">
+                <TrendingUp className="mr-2" /> AI Investment Insights
+              </h2>
+              <p className="text-gray-600">📈 Consider increasing your investment in tech stocks by 10% based on market trends.</p>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardContent>
+              <h2 className="text-lg font-bold text-red-500 flex items-center mb-2">
+                <ShieldAlert className="mr-2" /> Security & Fraud Alerts
+              </h2>
+              <p className="text-gray-600">⚠️ A suspicious transaction was detected in your account. Verify now.</p>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Graph Section */}
@@ -105,6 +98,12 @@ const Dashboard: React.FC = () => {
               <Tooltip />
             </LineChart>
           </ResponsiveContainer>
+        </div>
+
+        {/* AI Chatbot */}
+        <div className="bg-white p-4 rounded-2xl shadow-lg mb-6">
+          <h2 className="text-lg font-bold text-blue-600">💬 Ask AI Financial Advisor</h2>
+          <Chatbot />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Home, BarChart, Wallet, Settings, LogOut } from "lucide-react";
+import { Home, BarChart, Wallet, Settings, LogOut, User, Database, Activity, MessageCircle, Shield } from "lucide-react";
 import Link from "next/link";
 
 interface SidebarProps {
@@ -12,7 +12,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
     <div className={`fixed top-0 left-0 h-full bg-gray-900 text-white ${collapsed ? "w-20" : "w-64"} transition-all duration-300 p-4 flex flex-col overflow-hidden`}>
       <button 
         className="mb-6 text-xl font-bold flex items-center justify-center"
-        onClick={onToggle} // Call parent function
+        onClick={onToggle}
       >
         {collapsed ? "→" : "AI Advisor"}
       </button>
@@ -21,10 +21,15 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
           <SidebarItem href="/dashboard" icon={<Home />} label="Dashboard" collapsed={collapsed} />
           <SidebarItem href="/investments" icon={<BarChart />} label="Investments" collapsed={collapsed} />
           <SidebarItem href="/wallet" icon={<Wallet />} label="Wallet" collapsed={collapsed} />
+          <SidebarItem href="/ai-insights" icon={<Activity />} label="AI Insights" collapsed={collapsed} />
+          <SidebarItem href="/financial-goals" icon={<Database />} label="Financial Goals" collapsed={collapsed} />
+          <SidebarItem href="/chatbot" icon={<MessageCircle />} label="AI Chatbot" collapsed={collapsed} />
           <SidebarItem href="/settings" icon={<Settings />} label="Settings" collapsed={collapsed} />
+          <SidebarItem href="/security" icon={<Shield />} label="Security" collapsed={collapsed} />
         </ul>
       </nav>
-      <SidebarItem href="/logout" icon={<LogOut />} label="Logout" collapsed={collapsed} className="mt-auto text-red-400" />
+      <SidebarItem href="/profile" icon={<User />} label="Profile" collapsed={collapsed} className="mt-auto" />
+      <SidebarItem href="/logout" icon={<LogOut />} label="Logout" collapsed={collapsed} className="text-red-400" />
     </div>
   );
 };
