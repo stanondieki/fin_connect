@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Button from "@/components/ui/Button";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { User, DollarSign, BarChart2, Bell, CheckCircle, TrendingUp, ShieldAlert, Activity } from "lucide-react";
+import { User, DollarSign, BarChart2, TrendingUp, ShieldAlert } from "lucide-react";
 import Progress from "@/components/progress/progress";
 import Sidebar from "../../components/bar/sidebar";
 import Navbar from "@/components/bar/header";
@@ -13,11 +13,18 @@ const Dashboard: React.FC = () => {
   const toggleSidebar = () => setCollapsed(!collapsed);
 
   const sampleData = [
-    { month: "Jan", expenses: 400, income: 800 },
-    { month: "Feb", expenses: 300, income: 900 },
-    { month: "Mar", expenses: 500, income: 750 },
-    { month: "Apr", expenses: 700, income: 1100 },
-    { month: "May", expenses: 600, income: 850 },
+    { month: "Jan", expenses: 60000, income: 80000 },
+    { month: "Feb", expenses: 75000, income: 90000 },
+    { month: "Mar", expenses: 50000, income: 75000 },
+    { month: "Apr", expenses: 70000, income: 110000 },
+    { month: "May", expenses: 60000, income: 85000 },
+    { month: "Jun", expenses: 95000, income: 150000 },
+    { month: "Jul", expenses: 70000, income: 150000 },
+    { month: "Aug", expenses: 75000, income: 150000 },
+    { month: "Sep", expenses: 100000, income: 120000 },
+    { month: "Oct", expenses: 85000, income: 135000 },
+    { month: "Nov", expenses: 90000, income: 145000 },
+    { month: "Dec", expenses: 95000, income: 155000 },
   ];
 
   return (
@@ -69,7 +76,7 @@ const Dashboard: React.FC = () => {
               <h2 className="text-lg font-bold text-green-500 flex items-center mb-2">
                 <TrendingUp className="mr-2" /> AI Investment Insights
               </h2>
-              <p className="text-gray-600">📈 Consider increasing your investment in tech stocks by 10% based on market trends.</p>
+              <p className="text-gray-600">📈 Increase your investment in tech stocks by 10% based on market trends.</p>
             </CardContent>
           </Card>
           
