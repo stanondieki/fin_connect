@@ -9,7 +9,8 @@ const SignIn = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
-    const [passwordVisible, setPasswordVisible] = useState(false); 
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
     const router = useRouter();
 
     const handleSubmit = async (e) => {
@@ -17,41 +18,32 @@ const SignIn = () => {
         setLoading(true);
         setError('');
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login', { email, password, rememberMe });
-            console.log('Response:', response.data); // Debug log
-            
-            if (response.data.success || response.data.message === 'Login successful') {
-                // Store any auth tokens if your backend sends them
-                if (response.data.token) {
-                    localStorage.setItem('authToken', response.data.token);
-                    axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-                }
+            const response = await axios.post('http://127.0.0.1:8000/api/login', { email, password });
+    
+            console.log('Response:', response.data); // Debugging
+    
+            if (response.data.access_token) { 
+                localStorage.setItem('authToken', response.data.access_token);
+                axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
                 
-                // Use await to ensure redirection happens
+                setSuccessMessage('Login Successful');
+                setTimeout(() => setSuccessMessage(''), 3000);
+                
                 await router.push('/dash/dashboard');
-                
-                // If router.push doesn't work, try force reload
-                if (typeof window !== 'undefined') {
-                    window.location.href = '/dash/dashboard';
-                }
             } else {
-                setError(response.data.message || 'Login failed');
+                setError('Login failed');
             }
         } catch (err) {
-            console.error('Login error:', err); // Debug log
-            setError('An error occurred. Please try again.');
+            console.error('Login error:', err.response?.data || err.message);
+            setError(err.response?.data?.error || 'An error occurred. Please try again.');
         } finally {
             setLoading(false);
         }
     };
-
-    const handleInputChange = (e, setter) => {
-        setter(e.target.value);
-        if (error) setError('');
-    };
+    
 
     return (
-        <div className="max-w-md mx-auto p-6 border border-gray-300 rounded-lg shadow-lg">
+        <div className="max-w-md mx-auto p-6 border border-gray-300 rounded-lg shadow-lg relative">
             <h1 className="text-3xl font-semibold text-center mb-6 text-blue-600">Sign In</h1>
             <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
                 <div>
@@ -60,7 +52,7 @@ const SignIn = () => {
                         id="email"
                         type="email"
                         value={email}
-                        onChange={(e) => handleInputChange(e, setEmail)}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                         className="w-full p-3 border text-black border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter your email"
@@ -71,16 +63,16 @@ const SignIn = () => {
                     <div className="relative">
                         <input
                             id="password"
-                            type={passwordVisible ? 'text' : 'password'}  // Toggle input type
+                            type={passwordVisible ? 'text' : 'password'}
                             value={password}
-                            onChange={(e) => handleInputChange(e, setPassword)}
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                             className="w-full p-3 border text-black border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter your password"
                         />
                         <button 
                             type="button" 
-                            onClick={() => setPasswordVisible(!passwordVisible)}  
+                            onClick={() => setPasswordVisible(!passwordVisible)}
                             className="absolute right-3 top-3"
                         >
                             {passwordVisible ? <FaEyeSlash /> : <FaEye />}  
@@ -89,7 +81,6 @@ const SignIn = () => {
                 </div>
                 {error && <p className="text-red-500 text-sm">{error}</p>}
 
-                {/* Remember Me checkbox */}
                 <div className="flex items-center">
                     <input
                         type="checkbox"
@@ -110,7 +101,6 @@ const SignIn = () => {
                 </button>
             </form>
 
-            {/* Forgot Password link */}
             <div className="mt-4 flex justify-between items-center text-sm text-gray-600">
                 <a href="/Auth/forgotpassword" className="text-blue-600 hover:underline">Forgot Password?</a>
                 <p>
@@ -118,6 +108,12 @@ const SignIn = () => {
                     <a href="/Auth/signup" className="text-blue-600 hover:underline">Sign Up</a>
                 </p>
             </div>
+
+            {successMessage && (
+                <div className="fixed bottom-4 right-4 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg">
+                    {successMessage}
+                </div>
+            )}
         </div>
     );
 };
