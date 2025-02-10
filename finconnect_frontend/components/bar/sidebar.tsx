@@ -41,21 +41,21 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
       </button>
       <nav className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
         <ul className="space-y-2">
-          <SidebarItem href="/dashboard" icon={<Home />} label="Dashboard" collapsed={collapsed} />
+          <SidebarItem href="/dash/dashboard" icon={<Home />} label="Dashboard" collapsed={collapsed} />
           <SidebarItem href="/investments" icon={<BarChart />} label="Investments" collapsed={collapsed} />
           <SidebarItem href="/wallet" icon={<Wallet />} label="Wallet" collapsed={collapsed} />
           <SidebarItem href="/ai-insights" icon={<Activity />} label="AI Insights" collapsed={collapsed} />
-          <SidebarItem href="/financial-goals" icon={<Database />} label="Financial Goals" collapsed={collapsed} />
-          <SidebarItem href="/transactions" icon={<CreditCard />} label="Transactions" collapsed={collapsed} />
+          <SidebarItem href="/goals/FinancialGoals" icon={<Database />} label="Financial Goals" collapsed={collapsed} />
+          <SidebarItem href="/transaction/Transactions" icon={<CreditCard />} label="Transactions" collapsed={collapsed} />
           <SidebarItem href="/income/Income" icon={<TrendingUp />} label="Income" collapsed={collapsed} />
-          <SidebarItem href="/income/upcoming" icon={<Clock />} label="Upcoming Income" collapsed={collapsed}  />
+          <SidebarItem href="/upcoming/UpcomingIncome" icon={<Clock />} label="Upcoming Income" collapsed={collapsed}  />
           <SidebarItem href="/expense/expense" icon={<TrendingDown />} label="Expense" collapsed={collapsed} />
-          <SidebarItem href="/expense/upcoming" icon={<AlarmCheck />} label="Upcoming Expense" collapsed={collapsed}  />
+          <SidebarItem href="/upcoming/UpcomingExpenses" icon={<AlarmCheck />} label="Upcoming Expense" collapsed={collapsed}  />
           
-          <SidebarItem href="/accounts" icon={<User />} label="Accounts" collapsed={collapsed} />
+          <SidebarItem href="/Account/Account" icon={<User />} label="Accounts" collapsed={collapsed} />
           
-          <SidebarItem href="/track-budget" icon={<Layers />} label="Track Budget" collapsed={collapsed} />
-          <SidebarItem href="/calendar" icon={<Calendar />} label="Calendar" collapsed={collapsed} />
+          <SidebarItem href="/budget/TrackBudget" icon={<Layers />} label="Track Budget" collapsed={collapsed} />
+          <SidebarItem href="/calendar/calendar" icon={<Calendar />} label="Calendar" collapsed={collapsed} />
           <SidebarItem href="/reports" icon={<FileText />} label="Reports" collapsed={collapsed} />
           
           <DropdownItem label="Category" icon={<Folder />} collapsed={collapsed} open={openDropdown === "category"} onClick={() => toggleDropdown("category")}>            

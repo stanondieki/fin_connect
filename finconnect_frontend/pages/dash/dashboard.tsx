@@ -30,7 +30,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="flex">
       <Sidebar collapsed={collapsed} onToggle={toggleSidebar} />
-      <div className={`p-6 bg-gray-100 min-h-screen transition-all duration-300 flex-1 flex flex-col ${collapsed ? "ml-10" : "ml-56"}`}>
+      <div className={`p-6 bg-gray-100 min-h-screen transition-all duration-300 flex-1 flex flex-col ${collapsed ? "ml-10" : "ml-52"}`}>
         <Navbar isSidebarCollapsed={collapsed} />
         
         <h1 className="text-3xl font-bold text-blue-600 mb-6 mt-10">Dashboard</h1>
