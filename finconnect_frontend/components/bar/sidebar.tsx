@@ -16,7 +16,9 @@ import {
   User,
   Layers,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  Clock,
+  AlarmCheck
 } from "lucide-react";
 import Link from "next/link";
 
@@ -45,15 +47,11 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
           <SidebarItem href="/ai-insights" icon={<Activity />} label="AI Insights" collapsed={collapsed} />
           <SidebarItem href="/financial-goals" icon={<Database />} label="Financial Goals" collapsed={collapsed} />
           <SidebarItem href="/transactions" icon={<CreditCard />} label="Transactions" collapsed={collapsed} />
+          <SidebarItem href="/income/Income" icon={<TrendingUp />} label="Income" collapsed={collapsed} />
+          <SidebarItem href="/income/upcoming" icon={<Clock />} label="Upcoming Income" collapsed={collapsed}  />
+          <SidebarItem href="/expense/expense" icon={<TrendingDown />} label="Expense" collapsed={collapsed} />
+          <SidebarItem href="/expense/upcoming" icon={<AlarmCheck />} label="Upcoming Expense" collapsed={collapsed}  />
           
-          <DropdownItem label="Income" icon={<TrendingUp />} collapsed={collapsed} open={openDropdown === "income"} onClick={() => toggleDropdown("income")}>            
-            <SidebarItem href="/income/upcoming" icon={<ChevronRight />} label="Upcoming Income" collapsed={collapsed} nested />
-          </DropdownItem>
-          
-          <DropdownItem label="Expense" icon={<TrendingDown />} collapsed={collapsed} open={openDropdown === "expense"} onClick={() => toggleDropdown("expense")}>            
-            <SidebarItem href="/expense/upcoming" icon={<ChevronRight />} label="Upcoming Expense" collapsed={collapsed} nested />
-          </DropdownItem>
-
           <SidebarItem href="/accounts" icon={<User />} label="Accounts" collapsed={collapsed} />
           
           <SidebarItem href="/track-budget" icon={<Layers />} label="Track Budget" collapsed={collapsed} />
