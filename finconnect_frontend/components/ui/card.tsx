@@ -1,4 +1,3 @@
-// src/components/ui/card.tsx
 import React from "react";
 
 interface CardProps {
@@ -12,6 +11,14 @@ export const Card: React.FC<CardProps> = ({ children, className }) => {
       {children}
     </div>
   );
+};
+
+export const CardHeader: React.FC<CardProps> = ({ children, className }) => {
+  return <div className={`px-4 py-2 border-b ${className}`}>{children}</div>;
+};
+
+export const CardTitle: React.FC<CardProps> = ({ children, className }) => {
+  return <h3 className={`text-lg font-semibold ${className}`}>{children}</h3>;
 };
 
 export const CardContent: React.FC<CardProps> = ({ children, className }) => {

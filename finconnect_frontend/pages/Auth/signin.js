@@ -17,31 +17,36 @@ const SignIn = () => {
         e.preventDefault();
         setLoading(true);
         setError('');
+    
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login', { email, password });
+            const response = await axios.post(
+                'http://127.0.0.1:8000/api/login',
+                { email, password },
+                { headers: { 'Content-Type': 'application/json' } }
+            );
     
-            console.log('Response:', response.data); // Debugging
+            console.log('Full API Response:', response);
     
-            if (response.data.access_token) { 
+            if (response.data && response.data.access_token) {
                 localStorage.setItem('authToken', response.data.access_token);
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
-                
+    
                 setSuccessMessage('Login Successful');
                 setTimeout(() => setSuccessMessage(''), 3000);
-                
+    
                 await router.push('/dash/dashboard');
             } else {
-                setError('Login failed');
+                setError('Login failed: Invalid response from API');
             }
         } catch (err) {
-            console.error('Login error:', err.response?.data || err.message);
+            console.error('Login error:', err.response || err);
             setError(err.response?.data?.error || 'An error occurred. Please try again.');
         } finally {
             setLoading(false);
         }
     };
     
-
+    
     return (
         <div className="max-w-md mx-auto p-6 border border-gray-300 rounded-lg shadow-lg relative">
             <h1 className="text-3xl font-semibold text-center mb-6 text-blue-600">Sign In</h1>
