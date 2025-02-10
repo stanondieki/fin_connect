@@ -42,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
       <nav className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
         <ul className="space-y-2">
           <SidebarItem href="/dash/dashboard" icon={<Home />} label="Dashboard" collapsed={collapsed} />
-          <SidebarItem href="/investments" icon={<BarChart />} label="Investments" collapsed={collapsed} />
+          <SidebarItem href="/invest/investment" icon={<BarChart />} label="Investments" collapsed={collapsed} />
           <SidebarItem href="/wallet" icon={<Wallet />} label="Wallet" collapsed={collapsed} />
           <SidebarItem href="/ai-insights" icon={<Activity />} label="AI Insights" collapsed={collapsed} />
           <SidebarItem href="/goals/FinancialGoals" icon={<Database />} label="Financial Goals" collapsed={collapsed} />
