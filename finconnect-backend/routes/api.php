@@ -12,6 +12,8 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\UpcomingIncomeController;
 use App\Http\Controllers\UpcomingExpenseController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BudgetController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -47,6 +49,12 @@ Route::post('/expense', [TransactionController::class, 'storeExpense']);
 
 Route::post('/income-upcoming', [UpcomingIncomeController::class, 'store']);
 Route::post('/expense-upcoming', [UpcomingExpenseController::class, 'store']);
+
+Route::post('/accounts', [AccountController::class, 'store']);
+
+
+Route::post('/budgets', [BudgetController::class, 'store']);
+Route::get('/budgets', [BudgetController::class, 'index']);
 
 
 // Route::get('/email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
