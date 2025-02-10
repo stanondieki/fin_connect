@@ -56,7 +56,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
           
           <SidebarItem href="/budget/TrackBudget" icon={<Layers />} label="Track Budget" collapsed={collapsed} />
           <SidebarItem href="/calendar/calendar" icon={<Calendar />} label="Calendar" collapsed={collapsed} />
-          <SidebarItem href="/reports" icon={<FileText />} label="Reports" collapsed={collapsed} />
+          <SidebarItem href="/report/reports" icon={<FileText />} label="Reports" collapsed={collapsed} />
           
           <DropdownItem label="Category" icon={<Folder />} collapsed={collapsed} open={openDropdown === "category"} onClick={() => toggleDropdown("category")}>            
             <SidebarItem href="/category/income" icon={<ChevronRight />} label="Income Category" collapsed={collapsed} nested />
