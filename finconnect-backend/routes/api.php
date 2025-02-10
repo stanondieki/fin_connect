@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use Laravel\Passport\Passport;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\InvestmentController;
+use App\Http\Controllers\FinancialGoalController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,6 +29,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+
+Route::post('/investments', [InvestmentController::class, 'store']);
+Route::get('/investments', [InvestmentController::class, 'index']);
+Route::delete('/investments/{id}', [InvestmentController::class, 'destroy']);
+
+Route::post('/financial-goals', [FinancialGoalController::class, 'store']);
 
 // Route::get('/email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
 // Route::post('/email/resend', [VerificationController::class, 'resend'])->middleware('auth:api');

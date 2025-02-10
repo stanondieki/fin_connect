@@ -42,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
       <nav className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
         <ul className="space-y-2">
           <SidebarItem href="/dash/dashboard" icon={<Home />} label="Dashboard" collapsed={collapsed} />
-          <SidebarItem href="/investments" icon={<BarChart />} label="Investments" collapsed={collapsed} />
+          <SidebarItem href="/invest/investment" icon={<BarChart />} label="Investments" collapsed={collapsed} />
           <SidebarItem href="/wallet" icon={<Wallet />} label="Wallet" collapsed={collapsed} />
           <SidebarItem href="/ai-insights" icon={<Activity />} label="AI Insights" collapsed={collapsed} />
           <SidebarItem href="/goals/FinancialGoals" icon={<Database />} label="Financial Goals" collapsed={collapsed} />
@@ -56,7 +56,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
           
           <SidebarItem href="/budget/TrackBudget" icon={<Layers />} label="Track Budget" collapsed={collapsed} />
           <SidebarItem href="/calendar/calendar" icon={<Calendar />} label="Calendar" collapsed={collapsed} />
-          <SidebarItem href="/reports" icon={<FileText />} label="Reports" collapsed={collapsed} />
+          <SidebarItem href="/report/reports" icon={<FileText />} label="Reports" collapsed={collapsed} />
           
           <DropdownItem label="Category" icon={<Folder />} collapsed={collapsed} open={openDropdown === "category"} onClick={() => toggleDropdown("category")}>            
             <SidebarItem href="/category/income" icon={<ChevronRight />} label="Income Category" collapsed={collapsed} nested />
