@@ -10,15 +10,19 @@ const IncomePage = () => {
   const [collapsed, setCollapsed] = useState(false);
   const toggleSidebar = () => setCollapsed(!collapsed);
 
+  const handleAddIncomeClick = () => {
+    window.location.href = "/transaction/Transactions";
+  };
+
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
       <Sidebar collapsed={collapsed} onToggle={toggleSidebar} />
-      
+
       <div className={`p-6 bg-gray-100 min-h-screen transition-all duration-300 flex-1 flex flex-col ${collapsed ? "ml-10" : "ml-52"}`}>
         {/* Navbar */}
         <Navbar isSidebarCollapsed={collapsed} />
-        
+
         <main className="p-6 space-y-6" style={{ marginTop: "40px" }}>
           {/* Overview Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -42,9 +46,11 @@ const IncomePage = () => {
           <div className="bg-white shadow-md rounded-lg p-4">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-semibold">Income List</h2>
-              <Button className="bg-blue-500 text-white">+ Add New Income</Button>
+              <Button className="bg-blue-500 text-white" onClick={handleAddIncomeClick}>
+                + Add New Income
+              </Button>
             </div>
-            
+
             <Table>
               <TableHead>
                 <TableRow>
@@ -58,7 +64,9 @@ const IncomePage = () => {
               </TableHead>
               <TableBody>
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center text-gray-500">No data available in table</TableCell>
+                  <TableCell colSpan={6} className="text-center text-gray-500">
+                    No data available in table
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>

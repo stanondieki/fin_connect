@@ -42,7 +42,10 @@ const ExpensePage = () => {
           <div className="bg-white shadow-md rounded-lg p-4">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-semibold">Expense List</h2>
-              <Button className="bg-blue-500 text-white">+ Add New Expense</Button>
+              <Button className="bg-blue-500 text-white" onClick={() => window.location.href = "/transaction/Transactions"}>
+                + Add New Expense
+              </Button>
+
             </div>
             
             <Table>
