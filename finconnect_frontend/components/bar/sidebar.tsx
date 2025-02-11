@@ -55,11 +55,13 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
           <SidebarItem href="/Account/Account" icon={<User />} label="Accounts" collapsed={collapsed} />
           
           <SidebarItem href="/budget/TrackBudget" icon={<Layers />} label="Track Budget" collapsed={collapsed} />
+          <SidebarItem href="/debt/debt/" icon={<Layers />} label="Track Debt" collapsed={collapsed} />
+
           <SidebarItem href="/calendar/calendar" icon={<Calendar />} label="Calendar" collapsed={collapsed} />
           <SidebarItem href="/report/reports" icon={<FileText />} label="Reports" collapsed={collapsed} />
           
           <DropdownItem label="Category" icon={<Folder />} collapsed={collapsed} open={openDropdown === "category"} onClick={() => toggleDropdown("category")}>            
-            <SidebarItem href="/category/income" icon={<ChevronRight />} label="Income Category" collapsed={collapsed} nested />
+            <SidebarItem href="/category/incomeCategoryList" icon={<ChevronRight />} label="Income Category" collapsed={collapsed} nested />
             <SidebarItem href="/category/expense" icon={<ChevronRight />} label="Expense Category" collapsed={collapsed} nested />
           </DropdownItem>
           

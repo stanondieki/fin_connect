@@ -25,3 +25,11 @@ export const TableCell = ({ children, className = "", ...props }) => {
     <td className={`p-3 text-left ${className}`} {...props}>{children}</td>
   );
 };
+
+export const TableHeaderCell = ({ children, className = "", ...props }) => {
+  return (
+    <th className={`p-3 text-left font-bold ${className}`} {...props}>{children}</th>
+  );
+};
+
+export { TableBody as Tbody, TableCell as Td, TableHeaderCell as Th, TableHead as Thead, TableRow as Tr };

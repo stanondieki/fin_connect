@@ -1,9 +1,9 @@
 // components/ui/avatar.js
 import React from "react";
 
-export function Avatar({ children }) {
+export function Avatar({ className = "", children }) {
   return (
-    <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+    <div className={`w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center ${className}`}>
       {children}
     </div>
   );

@@ -1,11 +1,17 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { SessionProvider } from "next-auth/react";  // Import SessionProvider
+import { SessionProvider } from "next-auth/react"; 
+import "@/utils/language/i18n";
+import i18n from "i18next"; 
+import { useEffect } from "react";
 
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  useEffect(() => {
+    console.log("Current language:", i18n.language);
+  },[]);
 
   const excludeNavbarRoutes = [
     "/dash/dashboard",
