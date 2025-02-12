@@ -18,6 +18,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserReportController;
 use App\Http\Controllers\IncomeCategoryController;
 use App\Http\Controllers\IncomeSubCategoryController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -83,6 +84,13 @@ Route::post('/income-categories', [IncomeCategoryController::class, 'store']);
 
 Route::get('/income-sub-categories', [IncomeSubCategoryController::class, 'index']);
 Route::post('/income-sub-categories', [IncomeSubCategoryController::class, 'store']);
+
+
+Route::middleware('auth:api')->group(function () {
+    Route::post('/profile/update', [ProfileController::class, 'update']);
+});
+
+Route::middleware('auth:api')->post('/profile/update', [ProfileController::class, 'update']);
 
 
 
