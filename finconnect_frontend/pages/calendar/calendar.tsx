@@ -13,7 +13,7 @@ const CalendarPage = () => {
 
   const startDay = startOfMonth(currentDate);
   const days = eachDayOfInterval({ start: startDay, end: endOfMonth(currentDate) });
-  const firstDayOfWeek = getDay(startDay); // Get the weekday index of the first day
+  const firstDayOfWeek = getDay(startDay); 
 
   const previousMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
@@ -36,11 +36,12 @@ const CalendarPage = () => {
         {/* Page Content */}
         <div className="p-6 bg-gray-100 min-h-screen" style={{ marginTop: "40px" }}>
           {/* Summary Cards */}
+          {/* Summary Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             {[
-              { label: "This Month (February)", value: "KSH0.00", icon: <ArrowUp size={40} />, bgColor: "bg-cyan-400" },
-              { label: "This Month (February)", value: "KSH0.00", icon: <ArrowDown size={40} />, bgColor: "bg-red-400" },
-              { label: "Balance This Month (February)", value: "KSH0.00", icon: <CreditCard size={40} />, bgColor: "bg-green-500" },
+              { label: `This Month (${format(currentDate, "MMMM")})`, value: "Ksh 0.00", icon: <ArrowUp size={40} />, bgColor: "bg-cyan-400" },
+              { label: `This Month (${format(currentDate, "MMMM")})`, value: "Ksh 0.00", icon: <ArrowDown size={40} />, bgColor: "bg-red-600" },
+              { label: `Balance This Month (${format(currentDate, "MMMM")})`, value: "Ksh 0.00", icon: <CreditCard size={40} />, bgColor: "bg-green-600" },
             ].map((item, index) => (
               <Card key={index} className="relative flex items-center p-4 bg-white shadow-md overflow-hidden">
                 {/* Left-side Icon Section */}
@@ -55,6 +56,7 @@ const CalendarPage = () => {
               </Card>
             ))}
           </div>
+
 
           {/* Calendar Section */}
           <div className="bg-white p-4 shadow-md">

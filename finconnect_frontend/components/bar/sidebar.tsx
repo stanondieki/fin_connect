@@ -43,8 +43,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
         <ul className="space-y-2">
           <SidebarItem href="/dash/dashboard" icon={<Home />} label="Dashboard" collapsed={collapsed} />
           <SidebarItem href="/invest/investment" icon={<BarChart />} label="Investments" collapsed={collapsed} />
-          <SidebarItem href="/wallet" icon={<Wallet />} label="Wallet" collapsed={collapsed} />
-          <SidebarItem href="/ai-insights" icon={<Activity />} label="AI Insights" collapsed={collapsed} />
+          <SidebarItem href="/wallet/wallet" icon={<Wallet />} label="Wallet" collapsed={collapsed} />
+          <SidebarItem href="/insights/AiInsights" icon={<Activity />} label="AI Insights" collapsed={collapsed} />
           <SidebarItem href="/goals/FinancialGoals" icon={<Database />} label="Financial Goals" collapsed={collapsed} />
           <SidebarItem href="/transaction/Transactions" icon={<CreditCard />} label="Transactions" collapsed={collapsed} />
           <SidebarItem href="/income/Income" icon={<TrendingUp />} label="Income" collapsed={collapsed} />
@@ -55,6 +55,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
           <SidebarItem href="/Account/Account" icon={<User />} label="Accounts" collapsed={collapsed} />
           
           <SidebarItem href="/budget/TrackBudget" icon={<Layers />} label="Track Budget" collapsed={collapsed} />
+          <SidebarItem href="/debt/debt/" icon={<Layers />} label="Track Debt" collapsed={collapsed} />
+
           <SidebarItem href="/calendar/calendar" icon={<Calendar />} label="Calendar" collapsed={collapsed} />
           <SidebarItem href="/report/reports" icon={<FileText />} label="Reports" collapsed={collapsed} />
           
@@ -70,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
           </DropdownItem>
         </ul>
       </nav>
-      <SidebarItem href="/logout" icon={<LogOut />} label="Logout" collapsed={collapsed} className="text-red-400" />
+      <SidebarItem href="/Auth/signin" icon={<LogOut />} label="Logout" collapsed={collapsed} className="text-red-400" />
     </div>
   );
 };

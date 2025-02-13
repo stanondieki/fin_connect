@@ -71,12 +71,12 @@ const UpcomingExpenses = () => {
         <div className="p-6 mt-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {["Due this month", "Due this week", "Due today"].map((text, index) => (
-              <div key={index} className="bg-white shadow-md rounded-lg p-4 flex items-center relative overflow-hidden">
-                <div className="absolute left-0 top-0 bottom-0 flex items-center justify-center w-16 bg-red-500">
+              <div key={index} className="bg-white shadow-md rounded-none p-4 flex items-center relative overflow-hidden">
+                <div className="absolute left-0 top-0 bottom-0 flex items-center justify-center w-16 bg-red-600">
                   <TrendingDown className="text-white text-3xl" />
                 </div>
                 <div className="ml-20">
-                  <p className="text-lg font-semibold">KSH0.00</p>
+                  <p className="text-lg font-semibold text-black">Ksh 0.00</p>
                   <p className="text-gray-600 text-sm">{text}</p>
                 </div>
               </div>
@@ -84,12 +84,12 @@ const UpcomingExpenses = () => {
           </div>
           <div className="bg-white shadow-md rounded-lg p-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Upcoming Expenses</h2>
-              <button onClick={toggleModal} className="bg-red-500 text-white px-4 py-2 rounded-md">+ Add Upcoming Expense</button>
+              <h2 className="text-lg font-semibold text-red-600">Upcoming Expenses</h2>
+              <button onClick={toggleModal} className="bg-red-600 text-white px-4 py-2 rounded-md">+ Add Upcoming Expense</button>
             </div>
             {/* Expense Table */}
             <div className="overflow-x-auto">
-              <table className="w-full border rounded-md">
+              <table className="w-full border rounded-md text-black">
                 <thead>
                   <tr className="bg-gray-100">
                     {["Name", "Amount", "Date", "Category", "Action"].map((header) => (

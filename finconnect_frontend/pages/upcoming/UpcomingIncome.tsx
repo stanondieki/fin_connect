@@ -89,13 +89,13 @@ const UpcomingIncome = () => {
             {["Due this month", "Due this week", "Due today"].map((text, index) => (
               <div
                 key={index}
-                className="bg-white shadow-md rounded-lg p-4 flex items-center relative overflow-hidden"
+                className="bg-white shadow-md rounded-none p-4 flex items-center relative overflow-hidden"
               >
-                <div className="absolute left-0 top-0 bottom-0 flex items-center justify-center w-16 bg-blue-500">
+                <div className="absolute left-0 top-0 bottom-0 flex items-center justify-center w-16 bg-cyan-400">
                   <TrendingUp className="text-white text-3xl" />
                 </div>
                 <div className="ml-20">
-                  <p className="text-lg font-semibold">KSH0.00</p>
+                  <p className="text-lg font-semibold text-black">Ksh 0.00</p>
                   <p className="text-gray-600 text-sm">{text}</p>
                 </div>
               </div>
@@ -104,14 +104,14 @@ const UpcomingIncome = () => {
 
           <div className="bg-white shadow-md rounded-lg p-6">
             <div className="flex flex-col md:flex-row justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold mb-2 md:mb-0">Upcoming Income</h2>
+              <h2 className="text-lg font-semibold mb-2 md:mb-0 text-blue-600">Upcoming Income</h2>
               <button className="bg-blue-500 text-white px-4 py-2 rounded-md" onClick={openModal}>
                 + Add Upcoming Income
               </button>
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full border rounded-md">
+              <table className="w-full border rounded-md text-black">
                 <thead>
                   <tr className="bg-gray-100">
                     {["Name", "Amount", "Date", "Category", "Action"].map((header) => (

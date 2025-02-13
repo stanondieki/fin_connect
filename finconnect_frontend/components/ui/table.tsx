@@ -25,3 +25,7 @@ export const TableCell = ({ children, className = "", ...props }) => {
     <td className={`p-3 text-left ${className}`} {...props}>{children}</td>
   );
 };
+
+export const TableHeader = ({ children, className = "" }) => {
+  return <th className={`p-3 text-left font-bold ${className}`}>{children}</th>;
+};

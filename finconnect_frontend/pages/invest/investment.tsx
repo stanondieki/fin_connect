@@ -20,6 +20,8 @@ const InvestmentPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [investments, setInvestments] = useState<Investment[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const [newInvestment, setNewInvestment] = useState({
     name: "",
     amount: "",
@@ -45,6 +47,7 @@ const InvestmentPage = () => {
   const handleAddInvestment = async () => {
     if (!newInvestment.name || !newInvestment.amount || !newInvestment.interest || !newInvestment.date || !newInvestment.maturityDate) return;
   
+    setSaving(true);
     try {
       const formattedDate = format(new Date(newInvestment.date), "yyyy-MM-dd");
       const formattedMaturityDate = format(new Date(newInvestment.maturityDate), "yyyy-MM-dd");
@@ -68,12 +71,15 @@ const InvestmentPage = () => {
         setInvestments([...investments, data.investment]);
         setShowModal(false);
         setNewInvestment({ name: "", amount: "", interest: "", date: "", maturityDate: "" });
+        setSuccessMessage("Investment added successfully");
+        setTimeout(() => setSuccessMessage(""), 5000);
       } else {
         console.error("Failed to save investment");
       }
     } catch (error) {
       console.error("Error:", error);
     }
+    setSaving(false);
   };
   
   
@@ -85,7 +91,7 @@ const InvestmentPage = () => {
         <Navbar isSidebarCollapsed={collapsed} />
         <div className="p-6 bg-white shadow-md" style={{ marginTop: "40px" }}>
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold">Investments</h2>
+            <h2 className="text-xl font-semibold text-blue-600">Investments</h2>
             <Button onClick={() => setShowModal(true)} className="bg-blue-500 text-white flex items-center gap-2">
               <PlusCircle size={20} /> Add Investment
             </Button>
@@ -93,7 +99,7 @@ const InvestmentPage = () => {
           <Input placeholder="Search:" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="border px-4 py-2 mb-4 w-auto" />
           <table className="w-full border-collapse border bg-white shadow-md">
             <thead>
-              <tr className="bg-gray-200">
+              <tr className="bg-gray-200 text-black">
                 <th className="border p-3">Name</th>
                 <th className="border p-3">Amount (KSH)</th>
                 <th className="border p-3">Interest (%)</th>
@@ -153,7 +159,7 @@ const InvestmentPage = () => {
                     placeholder="Enter investment name"
                     value={newInvestment.name}
                     onChange={(e) => setNewInvestment({ ...newInvestment, name: e.target.value })}
-                    className="border px-4 py-2 w-full"
+                    className="border text-black text px-4 py-2 w-full"
                     />
                 </div>
 
@@ -164,7 +170,7 @@ const InvestmentPage = () => {
                     type="number"
                     value={newInvestment.amount}
                     onChange={(e) => setNewInvestment({ ...newInvestment, amount: e.target.value })}
-                    className="border px-4 py-2 w-full"
+                    className="border text-black px-4 py-2 w-full"
                     />
                 </div>
 
@@ -175,7 +181,7 @@ const InvestmentPage = () => {
                     type="number"
                     value={newInvestment.interest}
                     onChange={(e) => setNewInvestment({ ...newInvestment, interest: e.target.value })}
-                    className="border px-4 py-2 w-full"
+                    className="border text-black px-4 py-2 w-full"
                     />
                 </div>
 
@@ -185,7 +191,7 @@ const InvestmentPage = () => {
                     type="date"
                     value={newInvestment.date}
                     onChange={(e) => setNewInvestment({ ...newInvestment, date: e.target.value })}
-                    className="border px-4 py-2 w-full"
+                    className="border text-blue-600 px-4 py-2 w-full"
                     />
                 </div>
 
@@ -195,7 +201,7 @@ const InvestmentPage = () => {
                     type="date"
                     value={newInvestment.maturityDate}
                     onChange={(e) => setNewInvestment({ ...newInvestment, maturityDate: e.target.value })}
-                    className="border px-4 py-2 w-full"
+                    className="border text-black px-4 py-2 w-full"
                     />
                 </div>
 
@@ -203,9 +209,9 @@ const InvestmentPage = () => {
                     <Button onClick={() => setShowModal(false)} className="bg-gray-500 text-white px-4 py-2 rounded">
                     Cancel
                     </Button>
-                    <Button onClick={handleAddInvestment} className="bg-green-500 text-white px-4 py-2 rounded">
-                    Save Investment
-                    </Button>
+                    <Button onClick={handleAddInvestment} className="bg-green-500 text-white px-4 py-2 rounded" disabled={saving}>
+                    {saving ? "Saving..." : "Save Investment"}
+                  </Button>
                 </div>
                 </div>
 

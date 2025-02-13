@@ -8,9 +8,11 @@ import { Check, Paperclip } from "lucide-react";
 import Sidebar from "@/components/bar/sidebar";
 import Navbar from "@/components/bar/header";
 
-const handleSubmit = async (type: "income" | "expense", formData: FormData, setLoading: (loading: boolean) => void) => {
+const handleSubmit = async (type, formData, setLoading, setSuccessMessage) => {
   try {
     setLoading(true);
+    setSuccessMessage(""); // Clear previous messages
+
     const endpoint = type === "income" ? "/api/income" : "/api/expense";
     const response = await fetch(`http://127.0.0.1:8000${endpoint}`, {
       method: "POST",
@@ -18,59 +20,70 @@ const handleSubmit = async (type: "income" | "expense", formData: FormData, setL
     });
 
     const result = await response.json();
-    alert(result.message);
+    if (response.ok) {
+      setSuccessMessage(result.message || `${type === "income" ? "Income" : "Expense"} saved successfully!`);
+    } else {
+      alert(result.message || "Something went wrong!");
+    }
   } catch (error) {
     console.error("Error saving transaction:", error);
+    alert("Failed to save transaction. Please try again.");
   } finally {
     setLoading(false);
   }
 };
 
-const TransactionForm = ({ type }: { type: "income" | "expense" }) => {
+const TransactionForm = ({ type }) => {
   const [date] = useState(new Date().toISOString().split("T")[0]);
   const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const handleFormSubmit = async (event: React.FormEvent) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target as HTMLFormElement);
-    await handleSubmit(type, formData, setLoading);
+    const formData = new FormData(event.target);
+    await handleSubmit(type, formData, setLoading, setSuccessMessage);
   };
 
   return (
-    <Card>
-      <CardHeader>
+    <Card className="bg-white shadow-lg rounded-xl border border-gray-200">
+      <CardHeader className={type === "income" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}>
         <CardTitle>{type === "income" ? "Income Transaction" : "Expense Transaction"}</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 p-6">
+        {successMessage && (
+          <div className="p-3 bg-green-200 text-green-800 rounded-md text-sm">
+            {successMessage}
+          </div>
+        )}
         <form onSubmit={handleFormSubmit} className="space-y-4">
           <div>
-            <label htmlFor={`${type}-name`} className="block text-sm font-medium">Name*</label>
-            <Input id={`${type}-name`} name="name" placeholder="Enter name" required />
+            <label className="block text-sm font-medium text-gray-700">Name*</label>
+            <Input name="name" placeholder="Enter name" required className="border-gray-300 focus:border-blue-500 w-full" />
           </div>
           <div>
-            <label htmlFor={`${type}-amount`} className="block text-sm font-medium">Amount*</label>
-            <Input id={`${type}-amount`} name="amount" type="number" placeholder="Enter amount" required />
+            <label className="block text-sm font-medium text-gray-700">Amount*</label>
+            <Input name="amount" type="number" placeholder="Enter amount" required className="border-gray-300 focus:border-blue-500 w-full" />
           </div>
           <div>
-            <label htmlFor={`${type}-reference`} className="block text-sm font-medium">Reference</label>
-            <Input id={`${type}-reference`} name="reference" placeholder="Enter reference" />
+            <label className="block text-sm font-medium text-gray-700">Reference</label>
+            <Input name="reference" placeholder="Enter reference" className="border-gray-300 focus:border-blue-500 w-full" />
           </div>
           <div>
-            <label htmlFor={`${type}-date`} className="block text-sm font-medium">Date</label>
-            <Input id={`${type}-date`} name="date" type="date" defaultValue={date} readOnly />
+            <label className="block text-sm font-medium text-gray-700">Date</label>
+            <Input name="date" type="date" defaultValue={date} readOnly className="border-gray-300 bg-gray-100 text-gray-600 w-full" />
           </div>
           <div>
-            <label htmlFor={`${type}-account`} className="block text-sm font-medium">Account*</label>
-            <Select id={`${type}-account`} name="account">
+            <label className="block text-sm font-medium text-gray-700">Account*</label>
+            <Select name="account" className="border-gray-300 focus:border-blue-500 w-full">
               <SelectItem value="bank">Bank</SelectItem>
               <SelectItem value="cash">Cash</SelectItem>
             </Select>
           </div>
           <div>
-            <label htmlFor={`${type}-category`} className="block text-sm font-medium">
+            <label className="block text-sm font-medium text-gray-700">
               {type === "income" ? "Income Category*" : "Expense Category*"}
             </label>
-            <Select id={`${type}-category`} name="category">
+            <Select name="category" className="border-gray-300 focus:border-blue-500 w-full">
               {type === "income" ? (
                 <>
                   <SelectItem value="salary">Salary</SelectItem>
@@ -85,10 +98,10 @@ const TransactionForm = ({ type }: { type: "income" | "expense" }) => {
             </Select>
           </div>
           <div>
-            <label htmlFor={`${type}-sub-category`} className="block text-sm font-medium">
+            <label className="block text-sm font-medium text-gray-700">
               {type === "income" ? "Income Sub Category*" : "Expense Sub Category*"}
             </label>
-            <Select id={`${type}-sub-category`} name="sub_category">
+            <Select name="sub_category" className="border-gray-300 focus:border-blue-500 w-full">
               {type === "income" ? (
                 <>
                   <SelectItem value="bonus">Bonus</SelectItem>
@@ -103,18 +116,16 @@ const TransactionForm = ({ type }: { type: "income" | "expense" }) => {
             </Select>
           </div>
           <div>
-            <label htmlFor={`${type}-note`} className="block text-sm font-medium">Note</label>
-            <Textarea id={`${type}-note`} name="note" placeholder="Add a note" />
+            <label className="block text-sm font-medium text-gray-700">Note</label>
+            <Textarea name="note" placeholder="Add a note" className="border-gray-300 focus:border-blue-500 w-full" />
           </div>
           <div>
-            <label htmlFor={`${type}-receipt`} className="block text-sm font-medium">Attach Receipt</label>
-            <div className="relative border-dotted border-2 border-gray-400 hover:border-blue-500 transition-all p-3 rounded-lg cursor-pointer flex items-center justify-center">
-              <Paperclip className="mr-2" />
-              <span className="text-gray-500">Choose file to upload</span>
-              <Input id={`${type}-receipt`} name="receipt" type="file" className="absolute inset-0 opacity-0 cursor-pointer" />
+            <div className="relative border-dotted border-2 border-gray-400 hover:border-blue-500 transition-all p-3 rounded-lg cursor-pointer flex items-center justify-center bg-gray-50">
+              <Paperclip className="mr-2 text-gray-500" />
+              <Input name="receipt" type="file" className="absolute inset-0 opacity-0 cursor-pointer" />
             </div>
           </div>
-          <Button type="submit" className="w-full" variant={type === "income" ? "success" : "danger"} disabled={loading}>
+          <Button type="submit" className={`w-full ${type === "income" ? "bg-green-600 hover:bg-green-700" : "bg-red-600 hover:bg-red-700"}`} disabled={loading}>
             {loading ? "Processing..." : <><Check className="mr-2" /> {type === "income" ? "Save Income" : "Save Expense"}</>}
           </Button>
         </form>
@@ -128,9 +139,9 @@ const TransactionPage = () => {
   const toggleSidebar = () => setCollapsed(!collapsed);
 
   return (
-    <div className="flex">
+    <div className="flex bg-gray-50 min-h-screen">
       <Sidebar collapsed={collapsed} onToggle={toggleSidebar} />
-      <div className={`p-6 bg-gray-100 min-h-screen transition-all duration-300 flex-1 flex flex-col ${collapsed ? "ml-10" : "ml-52"}`}>
+      <div className={`p-6 transition-all duration-300 flex-1 flex flex-col ${collapsed ? "ml-10" : "ml-52"}`}>
         <Navbar isSidebarCollapsed={collapsed} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
           <TransactionForm type="income" />

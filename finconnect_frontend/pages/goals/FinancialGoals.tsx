@@ -15,6 +15,7 @@ const FinancialGoals = () => {
   const [goals, setGoals] = useState<FinancialGoal[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [editGoal, setEditGoal] = useState<FinancialGoal | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
   const [goalData, setGoalData] = useState<Partial<FinancialGoal>>({
     name: "",
     opening: 0,
@@ -40,6 +41,7 @@ const FinancialGoals = () => {
       alert("All fields are required!");
       return;
     }
+    setIsSaving(true);
   
     try {
       // Format the target date as "YYYY-MM-DD"
@@ -68,7 +70,7 @@ const FinancialGoals = () => {
         setShowModal(false);
         setGoalData({ name: "", opening: 0, target: 0, targetDate: "" });
         setSuccessMessage("Financial goal added successfully!");
-        setTimeout(() => setSuccessMessage(""), 3000);
+        setTimeout(() => setSuccessMessage(""), 5000);
       } else {
         alert(data.message || "Failed to add goal");
       }
@@ -76,6 +78,7 @@ const FinancialGoals = () => {
       console.error("Error:", error);
       alert("An error occurred while saving the goal.");
     }
+    setIsSaving(false);
   };
   
   
@@ -118,7 +121,7 @@ const FinancialGoals = () => {
           {/* Account List Table */}
           <div className="bg-white shadow-md rounded-lg p-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Financial Goals List</h2>
+              <h2 className="text-lg font-semibold text-blue-600">Financial Goals List</h2>
               <button className="bg-blue-500 text-white px-4 py-2 rounded-md" onClick={() => setShowModal(true)}>
                 + Add New Goal
               </button>
@@ -126,7 +129,7 @@ const FinancialGoals = () => {
 
             {/* Table Controls */}
             <div className="flex justify-between items-center mb-4">
-              <div className="space-x-2">
+              <div className="space-x-2 text-black bg-gray-600">
                 {["Copy", "CSV", "PDF", "Print"].map((action) => (
                   <button key={action} className="bg-gray-200 px-3 py-1 rounded-md text-sm">{action}</button>
                 ))}
@@ -137,7 +140,7 @@ const FinancialGoals = () => {
             {/* Table */}
             <table className="w-full border rounded-md">
               <thead>
-                <tr className="bg-gray-100">
+                <tr className="bg-gray-100 text-gray-900">
                   {["Name", "Opening", "Target", "Remaining", "Date", "Action"].map((header) => (
                     <th key={header} className="p-2 border text-left">{header}</th>
                   ))}
@@ -169,7 +172,7 @@ const FinancialGoals = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={6} className="text-center p-4">No data available in table</td>
+                    <td colSpan={6} className="text-center text-black p-4">No data available in table</td>
                   </tr>
                 )}
               </tbody>
@@ -236,6 +239,11 @@ const FinancialGoals = () => {
        </div>
      </div>
      
+      )}
+       {successMessage && (
+        <div className="fixed bottom-4 left-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg">
+          {successMessage}
+        </div>
       )}
     </div>
   );
