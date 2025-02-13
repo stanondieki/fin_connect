@@ -13,6 +13,9 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     console.log("Current language:", i18n.language);
   },[]);
+  useEffect(() => {
+    console.log("Current language:", i18n.language);
+  },[]);
 
   const excludeNavbarRoutes = [
     "/dash/dashboard",
