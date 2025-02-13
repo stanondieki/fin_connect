@@ -11,8 +11,8 @@ const Chatbot: React.FC = () => {
     // Fetch financial data from the database
     const fetchFinancialData = async () => {
       try {
-        const response = await axios.get("/api/financial-data"); // Update with actual API endpoint
-        setFinancialData(response.data);
+        // const response = await axios.get("/api/financial-data"); 
+        // setFinancialData(response.data);
       } catch (error) {
         console.error("Error fetching financial data:", error);
       }

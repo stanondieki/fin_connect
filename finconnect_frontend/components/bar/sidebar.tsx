@@ -43,8 +43,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
         <ul className="space-y-2">
           <SidebarItem href="/dash/dashboard" icon={<Home />} label="Dashboard" collapsed={collapsed} />
           <SidebarItem href="/invest/investment" icon={<BarChart />} label="Investments" collapsed={collapsed} />
-          <SidebarItem href="/wallet" icon={<Wallet />} label="Wallet" collapsed={collapsed} />
-          <SidebarItem href="/ai-insights" icon={<Activity />} label="AI Insights" collapsed={collapsed} />
+          <SidebarItem href="/wallet/wallet" icon={<Wallet />} label="Wallet" collapsed={collapsed} />
+          <SidebarItem href="/insights/AiInsights" icon={<Activity />} label="AI Insights" collapsed={collapsed} />
           <SidebarItem href="/goals/FinancialGoals" icon={<Database />} label="Financial Goals" collapsed={collapsed} />
           <SidebarItem href="/transaction/Transactions" icon={<CreditCard />} label="Transactions" collapsed={collapsed} />
           <SidebarItem href="/income/Income" icon={<TrendingUp />} label="Income" collapsed={collapsed} />
@@ -62,7 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
           
           <DropdownItem label="Category" icon={<Folder />} collapsed={collapsed} open={openDropdown === "category"} onClick={() => toggleDropdown("category")}>            
             <SidebarItem href="/category/incomeCategoryList" icon={<ChevronRight />} label="Income Category" collapsed={collapsed} nested />
-            <SidebarItem href="/category/expense" icon={<ChevronRight />} label="Expense Category" collapsed={collapsed} nested />
+            <SidebarItem href="/category/ExpensecategoryList" icon={<ChevronRight />} label="Expense Category" collapsed={collapsed} nested />
           </DropdownItem>
           
           <DropdownItem label="Settings" icon={<Settings />} collapsed={collapsed} open={openDropdown === "settings"} onClick={() => toggleDropdown("settings")}>            
@@ -72,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
           </DropdownItem>
         </ul>
       </nav>
-      <SidebarItem href="/logout" icon={<LogOut />} label="Logout" collapsed={collapsed} className="text-red-400" />
+      <SidebarItem href="/Auth/signin" icon={<LogOut />} label="Logout" collapsed={collapsed} className="text-red-400" />
     </div>
   );
 };

@@ -64,13 +64,13 @@ const FinancialGoals = () => {
           {/* Account List Table */}
           <div className="bg-white shadow-md rounded-lg p-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Budget List</h2>
-              <button onClick={toggleModal} className="bg-blue-500 text-white px-4 py-2 rounded-md">+ Add Budget</button>
+              <h2 className="text-lg font-semibold text-blue-600">Budget List</h2>
+              <button onClick={toggleModal} className="bg-blue-600 text-white px-4 py-2 rounded-md">+ Add Budget</button>
             </div>
             
             {/* Table Controls */}
-            <div className="flex justify-between items-center mb-4">
-              <div className="space-x-2">
+            <div className="flex justify-between items-center mb-4 text-black">
+              <div className="space-x-2 bg-gray-400">
                 {["Copy", "CSV", "PDF", "Print"].map((action) => (
                   <button key={action} className="bg-gray-200 px-3 py-1 rounded-md text-sm">{action}</button>
                 ))}
@@ -79,9 +79,9 @@ const FinancialGoals = () => {
             </div>
 
             {/* Table */}
-            <table className="w-full border rounded-md">
+            <table className="w-full border rounded-md text-black">
               <thead>
-                <tr className="bg-gray-100">
+                <tr className="bg-gray-200">
                   {["Category", "Sub Category", "Amount", "Month", "Action"].map((header) => (
                     <th key={header} className="p-2 border text-left">{header}</th>
                   ))}
@@ -95,7 +95,7 @@ const FinancialGoals = () => {
             </table>
 
             {/* Table Pagination */}
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex justify-between items-center mt-4 text-black">
               <div>
                 <label>Show </label>
                 <select className="border p-1 rounded-md">

@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -20,6 +19,14 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
+        'first_name', 
+        'last_name', 
+        'phone', 
+        'email', 
+        'dob', 
+        'address', 
+        'country', 
+        'password', 
         'name',
         'email',
         'password',
@@ -44,4 +51,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function debts()
+{
+    return $this->hasMany(Debt::class);
+}
+
 }
